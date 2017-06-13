@@ -14,7 +14,7 @@ namespace Presentation.WebServiceReference
         public static async Task<List<StateViewItem>> GetStates()
         {
             HttpClient httpClient = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:63583/api/State/");
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://ws-cities.apphb.com/api/state/");
             HttpResponseMessage response = await httpClient.SendAsync(request);
             string dados = await response.Content.ReadAsStringAsync();
             List<StateViewItem> obj = JsonConvert.DeserializeObject<List<StateViewItem>>(dados);

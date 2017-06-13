@@ -11,10 +11,11 @@ namespace Presentation.WebServiceReference
 {
     public class CityWS
     {
+        private const string url = "http://ws-cities.apphb.com/api/city/";
         public static async Task<List<CityViewItem>> GetCities(int idState)
         {
             HttpClient httpClient = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:63583/api/City/?state="+idState);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url+"?state="+idState);
             HttpResponseMessage response = await httpClient.SendAsync(request);
             string dados = await response.Content.ReadAsStringAsync();
             List<CityViewItem> obj = JsonConvert.DeserializeObject<List<CityViewItem>>(dados);
@@ -23,7 +24,7 @@ namespace Presentation.WebServiceReference
         public static async Task<CityViewModel> GetCity(int idCIty)
         {
             HttpClient httpClient = new HttpClient();
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:63583/api/City/" + idCIty);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url + idCIty);
             HttpResponseMessage response = await httpClient.SendAsync(request);
             string dados = await response.Content.ReadAsStringAsync();
             CityViewModel obj = JsonConvert.DeserializeObject<CityViewModel>(dados);
