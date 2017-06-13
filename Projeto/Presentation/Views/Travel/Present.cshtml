@@ -1,0 +1,148 @@
+﻿@using Presentation.Models.ViewModels;
+@model  TravelViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Viagem Atual";
+}
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div class="tab-content">
+            <div class="tab-pane fade in active">
+                <div id="confirmedBody">
+                    <p></p>
+                    <p>
+                    </p>
+                    @if (Model.Destinations != null && Model.Destinations.Count > 0)
+                    {
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="col-md-12">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            Dados da Viagem
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <a href="@Url.Action("SeeGroup", "Travel", new { idTravel = Model.Id })" class="btn btn-outline btn-primary btn-circle pull-right" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fa fa-users fa-fw"></i>
+                                                </a>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2 text-uppercase text-right">
+                                                    Nome
+                                                </div>
+                                                <div class="col-md-10">
+                                                    @Model.Name
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="col-md-4 text-uppercase text-right">
+                                                        Cidade Origem
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Model.Destinations[0].City.Name - @Model.Destinations[0].City.State.Abbreviation
+                                                    </div>
+                                                    <div class="col-md-4 text-uppercase text-right">
+                                                        Data Origem
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Model.Destinations[0].Date.Date.ToShortDateString()
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="col-md-4 text-uppercase text-right">
+                                                        Cidade Destino
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Model.Destinations[1].City.Name - @Model.Destinations[1].City.State.Abbreviation
+                                                    </div>
+                                                    <div class="col-md-4 text-uppercase text-right">
+                                                        Data Destino
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        @Model.Destinations[1].Date.Date.ToShortDateString()
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="panel panel-green expense-travel">
+                                        <div class="panel-heading">
+                                            Despesas da Viagem
+                                        </div>
+                                        <div class="panel-body ">
+                                            <div class="col-md-12">
+
+                                                <div class="col-md-6 vr text-right  padding-1x">
+                                                    - 10,00
+                                                </div>
+                                                <div class="col-md-6 text-left">
+                                                    + 150,00
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-6 text-uppercase text-right vr horizontal-divider">
+                                                    Total
+                                                </div>
+                                                <div class="col-md-6 text-left horizontal-divider">
+                                                    R$ 150,00
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            Gastos Pessoais
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <a href="@Url.Action("AddMyCost", "Cost", new { idTravel = Model.Id })" class="btn btn-outline btn-primary btn-circle pull-right" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fa fa-plus fa-fw"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            Gastos da Viagem
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="col-md-12">
+                                                <a href="@Url.Action("SeeGroup", "Travel", new { idTravel = Model.Id })" class="btn btn-outline btn-primary btn-circle pull-right" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fa fa-users fa-fw"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal")
+</div>
+@Scripts.Render("~/jquery")
+@Scripts.Render("~/metis/js")

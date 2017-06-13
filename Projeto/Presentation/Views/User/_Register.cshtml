@@ -1,0 +1,120 @@
+﻿@model Presentation.Models.ViewModels.UserViewRegister
+@{
+    ViewBag.Title = "_Register";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title" id="myModalLabel">Cadastro</h3>
+</div>
+@using (@Html.BeginForm("Register", "User", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-12 modal-title">
+                <h4>Dados Pessoais</h4>
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.FirstName)
+                @Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.LastName)
+                @Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Cpf)
+                @Html.EditorFor(m => m.Cpf, new { htmlAttributes = new { @class = "form-control", @id = "cpf" } })
+                @Html.ValidationMessageFor(m => m.Cpf, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.BirthDay)
+                @Html.EditorFor(m => m.BirthDay, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.BirthDay, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-12">
+                @Html.LabelFor(m => m.Email)
+                @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Password)
+                @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.EditorFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-lg-12 modal-title">
+                <h4>Endereço</h4>
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Address.Street)
+                @Html.EditorFor(m => m.Address.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Address.Street, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-3">
+                @Html.LabelFor(m => m.Address.District)
+                @Html.EditorFor(m => m.Address.District, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Address.District, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-3">
+                @Html.LabelFor(m => m.Address.Number)
+                @Html.EditorFor(m => m.Address.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Address.Number, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-4 col-lg-offset-2">
+                @Html.LabelFor(m => m.Address.IdState)
+                @Html.DropDownListFor(m => m.Address.IdState, new SelectList(Model.Address.States, "Id", "Name"), "Selecione", new { @class = "form-control", @onchange = "javascript:GetCity(this.value);" })
+                @Html.ValidationMessageFor(m => m.Address.IdState, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Address.IdCity)
+                @Html.DropDownListFor(m => m.Address.IdCity, new SelectList(Model.Address.Cities, "Id", "Name"), "Selecione", new { @class = "form-control", @id = "ddlcity" })
+                @Html.ValidationMessageFor(m => m.Address.IdCity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </div>
+}
+
+@Scripts.Render("~/reloadModal")
+@Scripts.Render("~/maskedInput")
+<script language="javascript" type="text/javascript">
+    function GetCity(_stateId) {
+        var procemessage = "<option value='0'> Aguarde um momento...</option>";
+        $("#ddlcity").html(procemessage).show();
+        var url = "/User/GetCities/";
+
+        $.ajax({
+            url: url,
+            data: { idState: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value=''>Selecione</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#ddlcity").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+
+    $("#cpf").mask("999.999.999-99");
+</script>

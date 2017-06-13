@@ -1,0 +1,96 @@
+﻿@model Presentation.Models.ViewModels.TravelViewCreate
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Nova Viagem";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body">
+        <div class="tab-content">
+            <div class="tab-pane fade in active">
+                <div @*id="contactBody"*@>
+                    @using (@Html.BeginForm("NewTravel", "Travel", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+                    {
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                @Html.LabelFor(m => m.Name)
+                                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12 modal-title">
+                                @Html.LabelFor(m => m.Origin)
+                            </div>
+                            <div class="col-lg-4">
+                                @Html.DropDownList("Origem", new SelectList(Model.States, "Id", "Name"), "Selecione o Estado", new { @class = "form-control", @onchange = "javascript:GetCity(this.value,origin);" })
+                            </div>
+                            <div class="col-lg-5">
+                                @Html.DropDownListFor(m => m.Origin.IdCity, new SelectList(Model.Cities, "Id", "Name"), "Selecione a Cidade", new { @class = "form-control", @id = "origin" })
+                                @Html.ValidationMessageFor(m => m.Origin.IdCity, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-lg-3">
+                                @Html.EditorFor(m => m.Origin.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.Origin.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <div class="col-lg-12 modal-title">
+                                    @Html.LabelFor(m => m.Destination)
+                                </div>
+                                <div class="col-lg-4">
+                                    @Html.DropDownList("Destino",new SelectList(Model.States, "Id", "Name"), "Selecione o Estado", new { @class = "form-control", @onchange = "javascript:GetCity(this.value,destination);" })
+                                </div>
+                                <div class="col-lg-5">
+                                    @Html.DropDownListFor(m => m.Destination.IdCity, new SelectList(Model.Cities, "Id", "Name"), "Selecione a Cidade", new { @class = "form-control", @id = "destination" })
+                                    @Html.ValidationMessageFor(m => m.Destination.IdCity, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-3">
+                                    @Html.EditorFor(m => m.Destination.Date, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(m => m.Destination.Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline btn-success btn-lg btn-block">Salvar</button>
+                            </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal")
+</div>
+@Scripts.Render("~/jquery")
+<script language="javascript" type="text/javascript">
+    function GetCity(_stateId, dest) {
+        //console.log()
+        var procemessage = "<option value='0'> Aguarde um momento...</option>";
+        $("#" + dest.id).html(procemessage).show();
+        var url = "/User/GetCities/";
+
+        $.ajax({
+            url: url,
+            data: { idState: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value=''>Selecione</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#" + dest.id).html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+
+</script>

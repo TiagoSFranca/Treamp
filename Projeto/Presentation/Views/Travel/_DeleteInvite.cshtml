@@ -1,0 +1,33 @@
+﻿@model Presentation.Models.ViewModels.TravelViewModel
+
+@{
+    ViewBag.Title = "Recusar Convite de Viagem";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title" id="myModalLabel">@ViewBag.Title</h3>
+</div>
+@using (@Html.BeginForm("DeleteInvite", "Travel", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-12">
+                <p>
+                    Deseja excluir o convite para a viagem <strong>@Model.Name</strong>?
+                </p>
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(c => c.Id)
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </div>
+}
+
+
+@Scripts.Render("~/reloadModal")
+
+

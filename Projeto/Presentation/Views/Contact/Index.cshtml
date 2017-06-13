@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Contatos";
+}
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4>
+                @ViewBag.Title
+            </h4>
+        </div>
+        <div class="panel-body">
+            @Html.Partial("_ContactPartial")
+            <div class="tab-content">
+                <div class="tab-pane fade in active">
+                    <div id="contactBody">
+                        @Html.Action("AllContacts")
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("_Modal")
+    </div>
+@Scripts.Render("~/jquery")
+@Scripts.Render("~/metis/js")
+<script>
+    $(".contact").click(function (e) {
+        $(".contact").each(function () {
+            $(this).parent().removeClass("active")
+        })
+        $(this).parent().addClass("active")
+        let url = e.target.href
+        e.preventDefault()
+        $.get(url, function (data) {
+            $("#contactBody").html(data);
+
+            $('#dataTables-example').DataTable({
+                responsive: true
+            });
+        });
+    })
+</script>

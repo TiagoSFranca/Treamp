@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Viagens Confirmadas";
+}
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body">
+        @Html.Partial("_ConfirmedPartial")
+        <div class="tab-content">
+            <div class="tab-pane fade in active">
+                <div id="confirmedBody">
+                    <h4 class="text-center">Aguarde...</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal")
+</div>
+@Scripts.Render("~/jquery")
+@Scripts.Render("~/metis/js")
+<script>
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Travel/MyConfirmed/",
+            type: "POST",
+            success: function (result) {
+                $("#confirmedBody").html(result)
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+            }
+        });
+    });
+    $(".confirmed").click(function (e) {
+
+        $("#confirmedBody").html("<h4 class=" + "text-center" + ">Aguarde...</h4>")
+        $(".confirmed").each(function () {
+            $(this).parent().removeClass("active")
+        })
+        $(this).parent().addClass("active")
+        let url = e.target.href
+        e.preventDefault()
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (result) {
+                console.log("TESTE")
+                $("#confirmedBody").html(result)
+                $('#dataTables-example').DataTable({
+                    responsive: true
+                });
+            }
+        });
+    })
+</script>
+

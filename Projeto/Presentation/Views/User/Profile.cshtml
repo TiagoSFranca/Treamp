@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Perfil";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>
+            @ViewBag.Title
+        </h4>
+    </div>
+    <div class="panel-body">
+        @Html.Partial("_ProfilePartial")
+        <div class="tab-content">
+            <div class="tab-pane fade in active">
+                <div id="profileBody">
+                    @Html.Action("PersonalData")
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal")
+</div>
+@Scripts.Render("~/jquery")
+@Scripts.Render("~/metis/js")
+<script>
+    $(".profile").click(function (e) {
+        $(".profile").each(function () {
+            $(this).parent().removeClass("active")
+        })
+        $(this).parent().addClass("active")
+        let url = e.target.href
+        e.preventDefault()
+        $.get(url, function (data) {
+            console.log("tate", data)
+            $("#profileBody").html(data);
+        });
+    })
+</script>
+

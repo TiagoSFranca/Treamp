@@ -1,0 +1,58 @@
+﻿@using Presentation.Models.ViewModels;
+@model ContactViewList
+@{
+//Layout = "~/Views/Contact/_Layout.cshtml";
+}
+<p></p>
+<div class="row">
+    <div class="col-lg-12">
+        <a href="@Url.Action("AddContact", "Contact")" data-toggle="modal" data-target="#myModal">
+            <i class="fa fa-3x fa-plus-circle color-custom pull-right"></i>
+        </a>
+    </div>
+</div>
+<p>
+</p>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Contacts != null && Model.Contacts.Count > 0)
+                        {
+                            foreach (var item in Model.Contacts)
+                            {
+                                <tr class="odd gradeX">
+                                    @if (item.IdRemittee == ((UserViewItem)Session["user"]).Id)
+                                    {
+                                        <td>@item.Requester.FullName</td>
+                                        <td>@item.Requester.Email</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@item.Remittee.FullName</td>
+                                        <td>@item.Remittee.Email</td>
+                                    }
+                                    <td align="center">
+                                        <a href="@Url.Action("DeleteContact", "Contact", new { idContact = @item.Id })" class="btn btn-outline btn-danger btn-circle" data-toggle="modal" data-target="#myModal">
+                                            <i class="fa fa-trash-o fa-fw"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
