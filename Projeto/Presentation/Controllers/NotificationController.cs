@@ -23,7 +23,7 @@ namespace Presentation.Controllers
             notification.IdUser = IdUser;
             notification.Active = true;
             notification.Description = message;
-            notification.Date = DateTime.Now;
+            notification.Date = DateTime.Now.Date;
             var notificationMapped = AutoMapper.Mapper.Map<NotificationViewModel, Notification>(notification);
             try
             {

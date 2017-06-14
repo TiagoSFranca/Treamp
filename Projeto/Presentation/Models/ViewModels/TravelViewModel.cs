@@ -13,7 +13,9 @@ namespace Presentation.Models.ViewModels
         public bool Pendent { get; set; }
         public bool Finished { get; set; }
         public List<DestinationViewModel> Destinations { get; set; }
-        //public virtual ICollection<TravelUser> TravelUser { get; set; }
+        public List<TravelUserViewItem> TravelUsers { get; set; }
+        public List<TravelUserCostViewModel> PersonalCosts { get; set; }
+        public List<TravelUserCostViewModel> GroupCosts { get; set; }
     }
 
     public class TravelViewItem

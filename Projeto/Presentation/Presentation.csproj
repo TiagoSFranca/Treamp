@@ -181,6 +181,7 @@
     <Compile Include="Migrations\201706112224322_CHANGES_IN_TRAVEL.Designer.cs">
       <DependentUpon>201706112224322_CHANGES_IN_TRAVEL.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\TravelUserCostViewModel.cs" />
     <Compile Include="Util\DecimalModelBuilder.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />

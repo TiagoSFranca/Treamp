@@ -28,7 +28,7 @@ namespace Presentation.Controllers
             if (VerifyTravelContainsUser(cost.IdTravel))
             {
                 cost.IdTypeCost = ((int)TypeCostEnum.PERSONAL);
-                cost.CreatedDate = DateTime.Now;
+                cost.CreatedDate = DateTime.Now.Date;
                 var costMapped = AutoMapper.Mapper.Map<CostViewModel, Cost>(cost);
                 try
                 {

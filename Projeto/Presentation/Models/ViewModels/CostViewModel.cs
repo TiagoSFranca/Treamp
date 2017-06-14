@@ -16,6 +16,7 @@ namespace Presentation.Models.ViewModels
         public int IdTypeCost { get; set; }
         public TypeCostViewItem TypeCost { get; set; }
         public int IdTravel { get; set; }
+        public List<TravelUserCostViewitem> TravelUserCost { get; set; }
     }
 
     public class CostViewItem

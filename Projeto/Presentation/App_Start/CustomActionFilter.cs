@@ -43,7 +43,7 @@ namespace Presentation.App_Start
 
         private void Verify()
         {
-            DateTime currentDate = DateTime.Now;
+            DateTime currentDate = DateTime.Now.Date;
             var data = db.Travel.ToList();
             //var data = db.Travel.ToList().SelectMany(t => t.Destinations).Select(c => c.Date >= currentDate ).ToList();
             var Travels = AutoMapper.Mapper.Map<List<Travel>, List<TravelViewModel>>(data);

@@ -16,7 +16,7 @@ namespace Presentation.Controllers
         private PresentationContext db = new PresentationContext();
         MessageViewModel messageModel = new MessageViewModel();
         UserViewItem userLogged;
-        DateTime currentDate = DateTime.Now;
+        DateTime currentDate = DateTime.Now.Date;
 
         //OK
         public async Task<ActionResult> NewTravel()
@@ -317,7 +317,7 @@ namespace Presentation.Controllers
             if (travelMapped.Count > 0)
             {
                 travelViewModel = travelMapped.FirstOrDefault(t => t.Destinations[0].Date <= currentDate && t.Destinations[1].Date >= currentDate);
-                if (travelViewModel.Destinations != null)
+                if (travelViewModel != null && travelViewModel.Destinations != null)
                 {
                     foreach (var element in travelViewModel.Destinations)
                     {
