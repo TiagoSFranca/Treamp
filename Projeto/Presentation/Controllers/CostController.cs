@@ -106,6 +106,14 @@ namespace Presentation.Controllers
             return View("_Message", messageModel);
         }
 
+        public ActionResult SeeGroupCost(int idCost)
+        {
+            GroupViewModel group = new GroupViewModel();
+            var Users = db.TravelUserCost.Where(c => c.IdCost == idCost).Select(t => t.TravelUser).Select(c => c.User).ToList();
+            group.Members = AutoMapper.Mapper.Map<List<User>, List<UserViewItem>>(Users);
+            return View("_SeeGroupCost", group);
+        }
+
         private List<UserViewItem> FulFillLists(int idTravel)
         {
             var Users = db.TravelUser.Where(t => t.IdTravel == idTravel).Select(t => t.User).ToList();
