@@ -46,3 +46,8 @@ textarea {
 .padding-1x{
     padding-bottom: 3px;
 }
+
+.gray{
+    background-color: gray;
+    color: white;
+}

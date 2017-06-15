@@ -138,21 +138,33 @@
                                                                     <tr class="odd gradeX">
                                                                         <td>R$ @item.Price</td>
                                                                         <td>@item.CreatedDate.Date.Date.ToShortDateString()</td>
-                                                                        @*<td align="center">
-                                                                                <a href="@Url.Action("SeeGroup", "Travel", new { idTravel = @item.Id })" class="btn btn-outline btn-primary btn-circle" data-toggle="modal" data-target="#myModal">
-                                                                                    <i class="fa fa-eye fa-fw"></i>
-                                                                                </a>
-                                                                            </td>
-                                                                            <td align="center">
-                                                                                <a href="@Url.Action("DeleteTravel", "Travel", new { idTravel = @item.Id })" class="btn btn-outline btn-danger btn-circle" data-toggle="modal" data-target="#myModal">
-                                                                                    <i class="fa fa-trash-o fa-fw"></i>
-                                                                                </a>
-                                                                            </td>*@
                                                                     </tr>
                                                                 }
                                                             }
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4 text-uppercase text-right gray">
+                                                        <strong>
+                                                            Total
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-md-8 text-uppercase text-left gray">
+                                                        <strong>
+                                                            @if (Model.PersonalCosts != null && Model.PersonalCosts.Count > 0)
+                                                            {
+                                                                var sum = Model.PersonalCosts.Sum(e => e.Price);
+                                                                @Html.Raw("R$ " + sum.ToString());
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.Raw("R$ 0,00");
+                                                            }
+                                                        </strong>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
