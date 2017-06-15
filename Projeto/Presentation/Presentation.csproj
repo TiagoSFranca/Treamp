@@ -482,6 +482,7 @@
     <Content Include="Views\Travel\_GuestConfirmed.cshtml" />
     <Content Include="Views\Travel\Present.cshtml" />
     <Content Include="Views\Cost\_AddMyCost.cshtml" />
+    <Content Include="Views\Cost\_AddGroupCost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

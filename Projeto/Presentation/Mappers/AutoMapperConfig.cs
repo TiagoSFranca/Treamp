@@ -26,6 +26,7 @@ namespace WebService.Mappers
 
                 cfg.CreateMap<CostViewModel, Cost>().ReverseMap();
                 cfg.CreateMap<CostViewItem, Cost>().ReverseMap();
+                cfg.CreateMap<CostViewCreate, Cost>().ReverseMap();
 
                 cfg.CreateMap<UserViewModel, User>().ReverseMap();
                 cfg.CreateMap<UserViewItem, User>().ReverseMap();

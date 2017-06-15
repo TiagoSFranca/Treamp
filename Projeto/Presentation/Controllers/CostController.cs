@@ -14,6 +14,7 @@ namespace Presentation.Controllers
         private static PresentationContext db = new PresentationContext();
         MessageViewModel messageModel = new MessageViewModel();
         UserViewItem userLogged;
+
         public ActionResult AddMyCost(int idTravel)
         {
             var cost = new CostViewModel();
@@ -24,6 +25,12 @@ namespace Presentation.Controllers
         [HttpPost]
         public ActionResult AddMyCost(CostViewModel cost)
         {
+            if (VerifyCostIsEmpty(cost.Price))
+                ModelState.AddModelError("Price", "Custo não pode ser zero.");
+            if (!ModelState.IsValid)
+            {
+                return View("_AddMyCost", cost);
+            }
             messageModel.Title = "Adicionar Custo Pessoal";
             if (VerifyTravelContainsUser(cost.IdTravel))
             {
@@ -51,6 +58,60 @@ namespace Presentation.Controllers
             return View("_Message", messageModel);
         }
 
+        public ActionResult AddGroupCost(int idTravel)
+        {
+            var cost = new CostViewCreate();
+            cost.IdTravel = idTravel;
+            cost.Users = FulFillLists(idTravel);
+            return View("_AddGroupCost", cost);
+        }
+
+        [HttpPost]
+        public ActionResult AddGroupCost(CostViewCreate cost)
+        {
+            if (VerifyCostIsEmpty(cost.Price))
+                ModelState.AddModelError("Price", "Custo não pode ser zero.");
+            if (!ModelState.IsValid)
+            {
+                cost.Users = FulFillLists(cost.IdTravel);
+                return View("_AddGroupCost", cost);
+            }
+            messageModel.Title = "Adicionar Custo Pessoal";
+            if (VerifyTravelContainsUser(cost.IdTravel))
+            {
+                var costMapped = AutoMapper.Mapper.Map<CostViewCreate, Cost>(cost);
+                costMapped.IdTypeCost = ((int)TypeCostEnum.GROUP);
+                costMapped.CreatedDate = DateTime.Now.Date;
+                try
+                {
+                    db.Cost.Add(costMapped);
+                    foreach (var item in cost.UserListSelected)
+                    {
+                        TravelUserCost travelUserCost = new TravelUserCost()
+                        {
+                            IdCost = costMapped.Id,
+                            IdTravelUserTravel = cost.IdTravel,
+                            IdTravelUserUser = item
+                        };
+                        db.TravelUserCost.Add(travelUserCost);
+                    }
+                    db.SaveChanges();
+                    messageModel.Message = "Custo adicionado com sucesso!";
+                }
+                catch (Exception e)
+                {
+                    messageModel.Message = "Não foi possível concluir sua solicitação!\n Tente novamente mais tarde.";
+                }
+            }
+            return View("_Message", messageModel);
+        }
+
+        private List<UserViewItem> FulFillLists(int idTravel)
+        {
+            var Users = db.TravelUser.Where(t => t.IdTravel == idTravel).Select(t => t.User).ToList();
+            return AutoMapper.Mapper.Map<List<User>, List<UserViewItem>>(Users);
+        }
+
         private bool VerifyTravelContainsUser(int idTravel)
         {
             userLogged = (UserViewItem)HttpContext.Session["user"];
@@ -58,6 +119,11 @@ namespace Presentation.Controllers
             if (result != null)
                 return true;
             return false;
+        }
+
+        private bool VerifyCostIsEmpty(decimal cost)
+        {
+            return (cost == 0);
         }
 
         public static List<CostViewModel> GetPersonalCost(int idUser, int idTravel)

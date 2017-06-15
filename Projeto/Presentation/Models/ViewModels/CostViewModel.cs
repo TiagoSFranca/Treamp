@@ -25,4 +25,19 @@ namespace Presentation.Models.ViewModels
         public decimal Price { get; set; }
         public DateTime CreatedDate { get; set; }
     }
+
+    public class CostViewCreate
+    {
+        [Required]
+        [Display(Name = "Custo")]
+        public decimal Price { get; set; }
+
+        public List<UserViewItem> Users { get; set; }
+
+        [Required(ErrorMessage = "Selecione ao menos 1 integrante.")]
+        [Display(Name = "Custo")]
+        public List<int> UserListSelected { get; set; }
+
+        public int IdTravel { get; set; }
+    }
 }
