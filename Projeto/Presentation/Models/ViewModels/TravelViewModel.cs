@@ -16,7 +16,7 @@ namespace Presentation.Models.ViewModels
         public List<TravelUserViewItem> TravelUsers { get; set; }
         public List<CostViewModel> PersonalCosts { get; set; }
         public double TotalPersonal { get; set; }
-        public List<TravelUserCostViewModel> GroupCosts { get; set; }
+        public List<CostViewModel> GroupCosts { get; set; }
     }
 
     public class TravelViewItem

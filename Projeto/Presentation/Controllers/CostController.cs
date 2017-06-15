@@ -137,5 +137,14 @@ namespace Presentation.Controllers
             CostsMapped = AutoMapper.Mapper.Map<List<Cost>, List<CostViewModel>>(Costs);
             return CostsMapped;
         }
+
+        public static List<Cost> GetTravelCost(int idTravel)
+        {
+            var Costs = db.TravelUserCost.Where(
+                tu => tu.IdTravelUserTravel == idTravel
+                && tu.Cost.TypeCost.Id == ((int)TypeCostEnum.GROUP)
+            ).Select(tu => tu.Cost).OrderBy(t => t.CreatedDate).ToList();
+            return Costs;
+        }
     }
 }

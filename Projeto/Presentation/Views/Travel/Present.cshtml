@@ -198,15 +198,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @if (Model.PersonalCosts != null && Model.PersonalCosts.Count > 0)
+                                                            @if (Model.GroupCosts != null && Model.GroupCosts.Count > 0)
                                                             {
-                                                                foreach (var item in Model.PersonalCosts)
+                                                                foreach (var item in Model.GroupCosts)
                                                                 {
                                                                     <tr class="odd gradeX">
                                                                         <td>R$ @item.Price</td>
                                                                         <td>@item.CreatedDate.Date.Date.ToShortDateString()</td>
                                                                         <td align="center">
-                                                                            <a href="@Url.Action("AddMyCost", "Cost", new { idTravel = Model.Id })" title="Ver integrantes" class="btn btn-outline btn-primary btn-circle" data-toggle="modal" data-target="#myModal">
+                                                                            <a href="@Url.Action("SeeGroupCost", "Cost", new { idCost = item.Id })" title="Ver integrantes" class="btn btn-outline btn-primary btn-circle" data-toggle="modal" data-target="#myModal">
                                                                                 <i class="fa fa-eye fa-fw"></i>
                                                                             </a>
                                                                         </td>

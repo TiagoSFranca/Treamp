@@ -325,6 +325,8 @@ namespace Presentation.Controllers
                         element.City = city;
                     }
                     travelViewModel.PersonalCosts = CostController.GetPersonalCost(userLogged.Id, travelViewModel.Id);
+                    var Costs = CostController.GetTravelCost(travelViewModel.Id);
+                    travelViewModel.GroupCosts = AutoMapper.Mapper.Map<List<Cost>, List<CostViewModel>>(Costs);
                 }
             }
             return View(travelViewModel);
