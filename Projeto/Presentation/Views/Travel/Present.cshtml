@@ -85,21 +85,26 @@
                                         </div>
                                         <div class="panel-body ">
                                             <div class="col-md-12">
-
-                                                <div class="col-md-6 vr text-right  padding-1x">
-                                                    - 10,00
-                                                </div>
-                                                <div class="col-md-6 text-left">
-                                                    + 150,00
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-6 text-uppercase text-right vr horizontal-divider">
-                                                    Total
-                                                </div>
-                                                <div class="col-md-6 text-left horizontal-divider">
-                                                    R$ 150,00
-                                                </div>
+                                                @if (Model.ValueToPay < 0)
+                                                {
+                                                <h2 class="text-danger text-center">
+                                                    VOCÊ DEVE PAGAR 
+                                                    @Html.Raw("R$ " + Model.ValueToPay.ToString())
+                                                </h2>
+                                                }
+                                                else if(Model.ValueToPay > 0)
+                                                {
+                                                    <h2 class="text-warning text-center">
+                                                        VOCÊ DEVE RECEBER
+                                                        @Html.Raw("R$ " + Model.ValueToPay.ToString())
+                                                    </h2>
+                                                }
+                                                else
+                                                {
+                                                    <h2 class="text-success text-center">
+                                                        VOCÊ TÁ DE BOA
+                                                    </h2>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -215,6 +220,29 @@
                                                             }
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4 text-uppercase text-right gray">
+                                                        <strong>
+                                                            Total
+                                                        </strong>
+                                                    </div>
+                                                    <div class="col-md-8 text-uppercase text-left gray">
+                                                        <strong>
+                                                            @if (Model.GroupCosts != null && Model.GroupCosts.Count > 0)
+                                                            {
+                                                                var sum = Model.GroupCosts.Sum(e => e.Price);
+                                                                @Html.Raw("R$ " + sum.ToString());
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.Raw("R$ 0,00");
+                                                            }
+                                                        </strong>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

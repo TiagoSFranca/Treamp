@@ -327,6 +327,7 @@ namespace Presentation.Controllers
                     travelViewModel.PersonalCosts = CostController.GetPersonalCost(userLogged.Id, travelViewModel.Id);
                     var Costs = CostController.GetTravelCost(travelViewModel.Id);
                     travelViewModel.GroupCosts = AutoMapper.Mapper.Map<List<Cost>, List<CostViewModel>>(Costs);
+                    travelViewModel.ValueToPay = CalculateValue(Costs, userLogged.Id, travelViewModel.TravelUsers.Count());
                 }
             }
             return View(travelViewModel);
@@ -488,6 +489,16 @@ namespace Presentation.Controllers
                 }
             }
             return true;
+        }
+
+        private decimal CalculateValue(List<Cost> Costs, int idUser, int countMember)
+        {
+            decimal myCostSum = 0;
+            var costPerMember = Costs.Sum(t => t.Price)/countMember;
+            var myCostList = Costs.Where(c => c.TravelUserCost.Where(t => t.IdTravelUserUser == idUser).Count() > 0).ToList();
+            myCostList.ForEach(x => { myCostSum += (x.Price / x.TravelUserCost.Count()); });
+            decimal myCostFinal = myCostSum - costPerMember;
+            return myCostFinal;
         }
     }
 }
