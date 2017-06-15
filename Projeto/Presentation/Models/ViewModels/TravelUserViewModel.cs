@@ -19,9 +19,9 @@ namespace Presentation.Models.ViewModels
     {
         public int IdTravel { get; set; }
         public int IdUser { get; set; }
-        public TravelViewItem Travel { get; set; }
-        public List<TravelUserCostViewModel> TravelUserCosts { get; set; }
-        public UserViewItem User { get; set; }
+        //public TravelViewItem Travel { get; set; }
+        //public List<TravelUserCostViewItem> TravelUserCosts { get; set; }
+        //public UserViewItem User { get; set; }
     }
     public class TravelUserViewCreate
     {

@@ -10,17 +10,17 @@ namespace Presentation.Models.ViewModels
         public int IdTravelUserTravel { get; set; }
         public int IdTravelUserUser { get; set; }
         public int IdCost { get; set; }
-        public CostViewModel Cost { get; set; }
+        public CostViewItem Cost { get; set; }
         public TravelUserViewItem TravelUser { get; set; }
     }
 
 
-    public class TravelUserCostViewitem
+    public class TravelUserCostViewItem
     {
         public int IdTravelUserTravel { get; set; }
         public int IdTravelUserUser { get; set; }
         public int IdCost { get; set; }
-        public CostViewItem Cost { get; set; }
-        public TravelUserViewItem TravelUser { get; set; }
+        //public CostViewItem Cost { get; set; }
+        //public TravelUserViewItem TravelUser { get; set; }
     }
 }

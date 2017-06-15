@@ -14,7 +14,7 @@ namespace Presentation.Models.ViewModels
         public bool Finished { get; set; }
         public List<DestinationViewModel> Destinations { get; set; }
         public List<TravelUserViewItem> TravelUsers { get; set; }
-        public List<TravelUserCostViewModel> PersonalCosts { get; set; }
+        public List<CostViewModel> PersonalCosts { get; set; }
         public List<TravelUserCostViewModel> GroupCosts { get; set; }
     }
 
@@ -22,6 +22,8 @@ namespace Presentation.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Pendent { get; set; }
+        public bool Finished { get; set; }
     }
 
     public class TravelViewCreate

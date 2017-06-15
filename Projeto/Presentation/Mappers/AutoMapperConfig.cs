@@ -55,6 +55,10 @@ namespace WebService.Mappers
                 cfg.CreateMap<TravelUserViewItem, TravelUser>().ReverseMap();
                 cfg.CreateMap<TravelUserViewModel, TravelUser>().ReverseMap();
 
+
+                cfg.CreateMap<TravelUserCostViewItem, TravelUserCost>().ReverseMap();
+                cfg.CreateMap<TravelUserCostViewModel, TravelUserCost>().ReverseMap();
+
             });
         }
     }

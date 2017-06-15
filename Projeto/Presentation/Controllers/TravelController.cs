@@ -324,6 +324,7 @@ namespace Presentation.Controllers
                         var city = await CityWS.GetCity(element.IdCity);
                         element.City = city;
                     }
+                    travelViewModel.PersonalCosts = CostController.GetPersonalCost(userLogged.Id, travelViewModel.Id);
                 }
             }
             return View(travelViewModel);

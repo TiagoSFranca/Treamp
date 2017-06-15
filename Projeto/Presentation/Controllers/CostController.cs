@@ -11,7 +11,7 @@ namespace Presentation.Controllers
 {
     public class CostController : Controller
     {
-        private PresentationContext db = new PresentationContext();
+        private static PresentationContext db = new PresentationContext();
         MessageViewModel messageModel = new MessageViewModel();
         UserViewItem userLogged;
         public ActionResult AddMyCost(int idTravel)
@@ -58,6 +58,18 @@ namespace Presentation.Controllers
             if (result != null)
                 return true;
             return false;
+        }
+
+        public static List<CostViewModel> GetPersonalCost(int idUser, int idTravel)
+        {
+            List<CostViewModel> CostsMapped = new List<CostViewModel>();
+            var Costs = db.TravelUserCost.Where(
+                tu => tu.IdTravelUserTravel == idTravel
+                && tu.IdTravelUserUser == idUser
+                && tu.Cost.TypeCost.Id == ((int)TypeCostEnum.PERSONAL)
+            ).Select(tu => tu.Cost).OrderBy(t => t.CreatedDate).ToList();
+            CostsMapped = AutoMapper.Mapper.Map<List<Cost>, List<CostViewModel>>(Costs);
+            return CostsMapped;
         }
     }
 }
