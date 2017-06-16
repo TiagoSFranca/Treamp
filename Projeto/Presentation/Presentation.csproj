@@ -175,6 +175,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CostController.cs" />
     <Compile Include="Migrations\201706112224322_CHANGES_IN_TRAVEL.cs" />
@@ -484,9 +485,11 @@
     <Content Include="Views\Cost\_AddMyCost.cshtml" />
     <Content Include="Views\Cost\_AddGroupCost.cshtml" />
     <Content Include="Views\Cost\_SeeGroupCost.cshtml" />
+    <Content Include="Views\User\_BankAccounts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BankAccount\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
