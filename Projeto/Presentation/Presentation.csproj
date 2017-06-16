@@ -464,7 +464,7 @@
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Shared\_ProfilePartial.cshtml" />
     <Content Include="Views\User\_PersonalData.cshtml" />
-    <Content Include="Views\User\_EditProfile.cshtml" />
+    <Content Include="Views\User\_ChangePassword.cshtml" />
     <Content Include="Views\Travel\NewTravel.cshtml" />
     <Content Include="Views\Travel\Pendent.cshtml" />
     <Content Include="Views\Shared\_PendentPartial.cshtml" />

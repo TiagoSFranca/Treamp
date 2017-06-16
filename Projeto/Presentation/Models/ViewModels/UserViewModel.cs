@@ -135,4 +135,25 @@ namespace Presentation.Models.ViewModels
 
     }
 
+    public class ChangePasswordViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Senha atual")]
+        [StringLength(20, ErrorMessage = "Deve possuir entre {2} e {1} letras", MinimumLength = 6)]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Nova senha")]
+        [StringLength(20, ErrorMessage = "Deve possuir entre {2} e {1} letras", MinimumLength = 6)]
+        public string NewPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmar Senha")]
+        [Compare("NewPassword", ErrorMessage = "Senhas diferentes.")]
+        [StringLength(20, ErrorMessage = "Deve possuir entre {2} e {1} letras", MinimumLength = 6)]
+        public string ConfirmPassword { get; set; }
+    }
 }

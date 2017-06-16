@@ -15,6 +15,7 @@ namespace Presentation.Controllers
     {
         private PresentationContext db = new PresentationContext();
         MessageViewModel messageModel = new MessageViewModel();
+        UserViewItem userLogged;
         // GET: User
         public ActionResult Login()
         {
@@ -60,6 +61,7 @@ namespace Presentation.Controllers
         public async Task<ActionResult> Register(UserViewRegister user)
         {
             await FulFillLists(user);
+            messageModel.Title = "Cadastro";
             if (!ModelState.IsValid) return View("_Register", user);
             if (VerifyUserExistsByEmail(user.Email))
             {
@@ -81,7 +83,6 @@ namespace Presentation.Controllers
                 db.Address.Add(address);
                 db.SaveChanges();
                 messageModel.Message = "Cadastro realizado com sucesso!";
-                messageModel.Title = "Cadastro";
             }
             catch (Exception e)
             {
@@ -89,7 +90,7 @@ namespace Presentation.Controllers
                 return View("_Register", user);
             }
             //return RedirectToRoute(new { controller = "User", action = "Login" });
-            return View("_Message",messageModel);
+            return View("_Message", messageModel);
         }
 
         [HttpPost]
@@ -112,16 +113,55 @@ namespace Presentation.Controllers
             return View("_PersonalData", userLogged);
         }
 
-        public ActionResult EditProfile()
+        public ActionResult ChangePassword()
         {
-            return View("_EditProfile");
+            return View("_ChangePassword", new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePasswordViewModel change)
+        {
+            messageModel.Title = "Alterar Senha";
+            if (change.OldPassword == change.NewPassword)
+                ModelState.AddModelError("NewPassword", "Nova senha não deve ser igual a atual.");
+            if (!ModelState.IsValid)
+                return View("_ChangePassword", change);
+
+            var userLogged = (UserViewItem)Session["user"];
+
+            var oldPassword = Services.CalculateSHA1(change.OldPassword);
+            var result = db.User.Where(u => u.Id == userLogged.Id && u.Password == oldPassword).FirstOrDefault();
+            if (result == null)
+            {
+                ModelState.AddModelError("OldPassword", "Senha atual errada");
+                return View("_ChangePassword", change);
+            }
+            result.Password = Services.CalculateSHA1(change.NewPassword);
+            try
+            {
+                db.SaveChanges();
+                messageModel.Message = "Senha alterada com sucesso.";
+            }
+            catch (Exception e)
+            {
+                messageModel.Message = "Não foi possível concluir sua solicitação!\n Tente novamente mais tarde.";
+            }
+            return View("_Message", messageModel);
+        }
+
+        public ActionResult BankAccounts()
+        {
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            var bk = db.BankAccount.Where(b => b.IdUser == userLogged.Id).ToList();
+            List<BankAccountViewModel> bank = AutoMapper.Mapper.Map<List<BankAccount>, List<BankAccountViewModel>>(bk);
+            return View("_BankAccounts", bank);
         }
 
         private bool VerifyUserExists(UserViewLogin user, UserViewItem userItem)
         {
             user.Password = Services.CalculateSHA1(user.Password);
             var result = db.User.Where(u => u.Email == user.Login && u.Password == user.Password).FirstOrDefault();
-            if(result == null)
+            if (result == null)
             {
                 return false;
             }
