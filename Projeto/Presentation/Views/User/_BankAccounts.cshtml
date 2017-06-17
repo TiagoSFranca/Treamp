@@ -24,26 +24,58 @@
     {
         <div class="panel-body">
             <div class="panel-group" id="accordion">
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">NOME DA AGENCIA</a>
-                                <a href="@Url.Action("EditProfile", "User")" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-pencil-square-o color-custom pull-right"></i>
-                                </a>
-                                <a href="@Url.Action("EditProfile", "User")" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-trash-o color-custom pull-right"></i>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                DADOS
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h2 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#@item.Id"><strong>@item.Name</strong></a>
+                                        </h2>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="@Url.Action("DeleteBankAccount", "BankAccount", new { id = item.Id})" class="btn btn-outline btn-primary btn-circle pull-right" data-toggle="modal" data-target="#myModal">
+                                            <i class="fa fa-pencil fa-fw"></i>
+                                        </a>
+                                        <a href="@Url.Action("EditBankAccount", "BankAccount", new { id = item.Id})" class="btn btn-outline btn-danger btn-circle pull-right" data-toggle="modal" data-target="#myModal">
+                                            <i class="fa fa-trash-o fa-fw"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="@item.Id" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Agência:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @item.Agency
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Número da conta:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @item.Account
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            Tipo da conta:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @item.TypeAccount.Name
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     }
