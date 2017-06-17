@@ -1,0 +1,42 @@
+﻿@model Presentation.Models.ViewModels.BankAccountViewModel
+@{
+    ViewBag.Title = "Cadastrar Conta";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title" id="myModalLabel">@ViewBag.Title</h3>
+</div>
+@using (@Html.BeginForm("AddAccount", "BankAccount", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Name)
+                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Agency)
+                @Html.EditorFor(m => m.Agency, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Agency, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Account)
+                @Html.EditorFor(m => m.Account, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Account, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.IdTypeAccount)
+                @Html.DropDownListFor(m => m.IdTypeAccount, new SelectList(Model.TypeAccountList, "Id", "Name"), "Selecione", new { @class = "form-control", @id = "ddlcity" })
+                @Html.ValidationMessageFor(m => m.IdTypeAccount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </div>
+}
+@Scripts.Render("~/reloadModal")

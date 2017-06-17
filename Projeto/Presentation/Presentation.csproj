@@ -244,6 +244,7 @@
     <Compile Include="Models\PresentationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Services.cs" />
+    <Compile Include="Util\TypeAccountEnum.cs" />
     <Compile Include="Util\TypeCostEnum.cs" />
     <Compile Include="WebServiceReference\CityWS.cs" />
     <Compile Include="WebServiceReference\StateWS.cs" />
@@ -486,10 +487,10 @@
     <Content Include="Views\Cost\_AddGroupCost.cshtml" />
     <Content Include="Views\Cost\_SeeGroupCost.cshtml" />
     <Content Include="Views\User\_BankAccounts.cshtml" />
+    <Content Include="Views\BankAccount\_AddAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\BankAccount\" />
     <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,17 +1,16 @@
 ﻿$('.form-modal').submit(function (e) {
+    $('button[type="submit"]').attr('disabled', true)
     e.preventDefault();
-    $.ajax({
-        url: this.action,
-        type: this.method,
-        data: $(this).serialize(),
-        success: function (result) {
-            //var teste = $(result).find('.field-validation-error')
-            //if (teste.length > 0) {
+    if ($(this).valid()) {
+        $.ajax({
+            url: this.action,
+            type: this.method,
+            data: $(this).serialize(),
+            success: function (result) {
                 $(".modal-content").html(result)
-            //} else {
-            //    $("#myModal").hide();
-            //    $('html').html(result);
-            //}
-        }
-    });
+            }
+        });
+    } else {
+        $('button[type="submit"]').attr('disabled', false)
+    }
 });

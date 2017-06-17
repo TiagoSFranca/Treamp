@@ -32,7 +32,7 @@
         let url = e.target.href
         e.preventDefault()
         $.get(url, function (data) {
-            console.log("tate", data)
+            
             $("#profileBody").html(data);
         });
     })

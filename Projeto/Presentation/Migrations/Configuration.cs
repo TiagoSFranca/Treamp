@@ -28,7 +28,18 @@ namespace Presentation.Migrations
                     Id = ((int)TypeCostEnum.GROUP),
                     Name = "Coletivo"
                 });
-
+            context.TypeAccount.AddOrUpdate(
+                data => data.Id,
+                new TypeAccount()
+                {
+                    Id = ((int)TypeAccountEnum.CORRENTE),
+                    Name = "Conta Corrente"
+                },
+                new TypeAccount()
+                {
+                    Id = ((int)TypeAccountEnum.POUPANcA),
+                    Name = "Conta Poupança"
+                });
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

@@ -24,6 +24,7 @@ namespace Presentation.Models.ViewModels
         public int IdTypeAccount { get; set; }
         public TypeAccountViewItem TypeAccount { get; set; }
         public UserViewItem User { get; set; }
+        public List<TypeAccountViewItem> TypeAccountList { get; set; }
     }
 
     public class BankAccountViewItem
