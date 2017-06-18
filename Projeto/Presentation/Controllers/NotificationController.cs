@@ -11,7 +11,8 @@ namespace Presentation.Controllers
     public class NotificationController : Controller
     {
         private static PresentationContext db = new PresentationContext();
-        // GET: Notification
+        UserViewItem userLogged;
+
         public ActionResult Index()
         {
             return View();
@@ -56,6 +57,13 @@ namespace Presentation.Controllers
             {
                 return View();
             }
+        }
+
+        public int GetNumberPendentNotifications()
+        {
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            var result = db.Notification.Where(t => t.Active && t.IdUser == userLogged.Id).Count();
+            return result;
         }
     }
 }

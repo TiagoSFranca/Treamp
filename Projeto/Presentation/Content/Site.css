@@ -51,3 +51,10 @@ textarea {
     background-color: gray;
     color: white;
 }
+
+.badge-notify{
+   background:red;
+   position:relative;
+   margin-top: -30%;
+   left: -20%;
+}
