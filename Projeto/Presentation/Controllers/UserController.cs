@@ -149,14 +149,6 @@ namespace Presentation.Controllers
             return View("_Message", messageModel);
         }
 
-        public ActionResult BankAccounts()
-        {
-            userLogged = (UserViewItem)HttpContext.Session["user"];
-            var bk = db.BankAccount.Where(b => b.IdUser == userLogged.Id).ToList();
-            List<BankAccountViewModel> bank = AutoMapper.Mapper.Map<List<BankAccount>, List<BankAccountViewModel>>(bk);
-            return View("_BankAccounts", bank);
-        }
-
         private bool VerifyUserExists(UserViewLogin user, UserViewItem userItem)
         {
             user.Password = Services.CalculateSHA1(user.Password);

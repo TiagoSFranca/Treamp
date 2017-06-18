@@ -175,6 +175,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CostController.cs" />
@@ -486,9 +487,10 @@
     <Content Include="Views\Cost\_AddMyCost.cshtml" />
     <Content Include="Views\Cost\_AddGroupCost.cshtml" />
     <Content Include="Views\Cost\_SeeGroupCost.cshtml" />
-    <Content Include="Views\User\_BankAccounts.cshtml" />
     <Content Include="Views\BankAccount\_AddAccount.cshtml" />
     <Content Include="Views\BankAccount\_DeleteBankAccount.cshtml" />
+    <Content Include="Views\BankAccount\Index.cshtml" />
+    <Content Include="Views\Address\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

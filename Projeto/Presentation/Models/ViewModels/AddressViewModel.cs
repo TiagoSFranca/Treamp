@@ -6,12 +6,15 @@ namespace Presentation.Models.ViewModels
     public class AddressViewModel
     {
         public int Id { get; set; }
+        [Display(Name = "Rua")]
         public string Street { get; set; }
+        [Display(Name = "Bairro")]
         public string District { get; set; }
+        [Display(Name = "Número")]
         public string Number { get; set; }
         public int IdCity { get; set; }
         public int IdUser { get; set; }
-        public CityViewItem City { get; set; }
+        public CityViewModel City { get; set; }
         public UserViewItem User { get; set; }
     }
 

@@ -13,6 +13,15 @@ namespace Presentation.Controllers
         private PresentationContext db = new PresentationContext();
         MessageViewModel messageModel = new MessageViewModel();
         UserViewItem userLogged;
+
+
+        public ActionResult Index()
+        {
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            var bk = db.BankAccount.Where(b => b.IdUser == userLogged.Id).ToList();
+            List<BankAccountViewModel> bank = AutoMapper.Mapper.Map<List<BankAccount>, List<BankAccountViewModel>>(bk);
+            return View("Index", bank);
+        }
         // GET: BankAccount
         public ActionResult AddAccount()
         {

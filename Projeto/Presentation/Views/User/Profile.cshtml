@@ -31,9 +31,13 @@
         $(this).parent().addClass("active")
         let url = e.target.href
         e.preventDefault()
-        $.get(url, function (data) {
-            
-            $("#profileBody").html(data);
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (result) {
+                
+                $("#profileBody").html(result)
+            }
         });
     })
 </script>
