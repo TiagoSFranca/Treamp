@@ -179,6 +179,7 @@
     <Compile Include="Controllers\BankAccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CostController.cs" />
+    <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Migrations\201706112224322_CHANGES_IN_TRAVEL.cs" />
     <Compile Include="Migrations\201706112224322_CHANGES_IN_TRAVEL.Designer.cs">
       <DependentUpon>201706112224322_CHANGES_IN_TRAVEL.cs</DependentUpon>
@@ -492,6 +493,9 @@
     <Content Include="Views\BankAccount\Index.cshtml" />
     <Content Include="Views\Address\Index.cshtml" />
     <Content Include="Views\Address\_EditAddress.cshtml" />
+    <Content Include="Views\Phone\Index.cshtml" />
+    <Content Include="Views\Phone\_AddPhone.cshtml" />
+    <Content Include="Views\Phone\_DeletePhone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

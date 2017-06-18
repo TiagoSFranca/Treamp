@@ -22,7 +22,7 @@ namespace Presentation.Controllers
             List<BankAccountViewModel> bank = AutoMapper.Mapper.Map<List<BankAccount>, List<BankAccountViewModel>>(bk);
             return View("Index", bank);
         }
-        // GET: BankAccount
+
         public ActionResult AddAccount()
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);

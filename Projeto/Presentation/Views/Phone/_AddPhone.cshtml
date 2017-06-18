@@ -1,0 +1,38 @@
+﻿@model Presentation.Models.ViewModels.PhoneViewModel
+@{
+    ViewBag.Title = "Cadastrar Telefone";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title" id="myModalLabel">@ViewBag.Title</h3>
+</div>
+@using (@Html.BeginForm("AddPhone", "Phone", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Prefix)
+                @Html.EditorFor(m => m.Prefix, new { htmlAttributes = new { @class = "form-control", @id = "prefix" } })
+                @Html.ValidationMessageFor(m => m.Prefix, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Number)
+                @Html.EditorFor(m => m.Number, new { htmlAttributes = new { @class = "form-control", @id = "number" } })
+                @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </div>
+}
+@Scripts.Render("~/reloadModal")
+@Scripts.Render("~/maskedInput")
+
+<script language="javascript" type="text/javascript">
+    $("#number").mask("9999-9999?9");
+    $("#prefix").mask("(99)");
+</script>
