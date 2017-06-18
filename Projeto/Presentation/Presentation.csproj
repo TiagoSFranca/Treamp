@@ -491,6 +491,7 @@
     <Content Include="Views\BankAccount\_DeleteBankAccount.cshtml" />
     <Content Include="Views\BankAccount\Index.cshtml" />
     <Content Include="Views\Address\Index.cshtml" />
+    <Content Include="Views\Address\_EditAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

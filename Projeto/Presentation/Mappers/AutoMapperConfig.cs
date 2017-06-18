@@ -17,6 +17,7 @@ namespace WebService.Mappers
                 cfg.CreateMap<AddressViewModel, Address>().ReverseMap();
                 cfg.CreateMap<AddressViewItem, Address>().ReverseMap();
                 cfg.CreateMap<AddressViewRegister, Address>().ReverseMap();
+                cfg.CreateMap<AddressViewEdit, Address>().ReverseMap();
 
                 cfg.CreateMap<DestinationViewModel, Destination>().ReverseMap();
                 cfg.CreateMap<DestinationViewItem, Destination>().ReverseMap();

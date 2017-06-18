@@ -47,9 +47,41 @@ namespace Presentation.Models.ViewModels
         [Display(Name = "Cidade")]
         public int IdCity { get; set; }
 
+        public CityViewModel City { get; set; }
+
         [Required]
         [Display(Name = "Estado")]
         public int IdState { get; set; }
+
+
+        public List<StateViewItem> States { get; set; }
+        public List<CityViewItem> Cities { get; set; }
+    }
+
+    public class AddressViewEdit
+    {
+        [Required]
+        [Display(Name = "Rua")]
+        [StringLength(100, ErrorMessage = "Deve possuir no mínimo {2} letras", MinimumLength = 2)]
+        public string Street { get; set; }
+
+        [Required]
+        [Display(Name = "Bairro")]
+        [StringLength(45, ErrorMessage = "Deve possuir no mínimo {2} letras", MinimumLength = 2)]
+        public string District { get; set; }
+
+        [Required]
+        [Display(Name = "Número")]
+        [StringLength(10, ErrorMessage = "Deve possuir no mínimo {2} letras", MinimumLength = 1)]
+        public string Number { get; set; }
+
+        [Display(Name = "Cidade")]
+        public int? IdCity { get; set; }
+
+        public CityViewModel City { get; set; }
+
+        [Display(Name = "Estado")]
+        public int? IdState { get; set; }
 
 
         public List<StateViewItem> States { get; set; }

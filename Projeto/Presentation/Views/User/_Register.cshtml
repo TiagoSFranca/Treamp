@@ -78,7 +78,7 @@
             </div>
             <div class="col-lg-6">
                 @Html.LabelFor(m => m.Address.IdCity)
-                @Html.DropDownListFor(m => m.Address.IdCity, new SelectList(Model.Address.Cities, "Id", "Name"), "Selecione", new { @class = "form-control", @id = "ddlcity" })
+                @Html.DropDownListFor(m => m.Address.IdCity, new SelectList(Model.Address.Cities, "Id", "Name"), "Selecione um estado...", new { @class = "form-control", @id = "ddlcity" })
                 @Html.ValidationMessageFor(m => m.Address.IdCity, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -94,25 +94,30 @@
 <script language="javascript" type="text/javascript">
     function GetCity(_stateId) {
         var procemessage = "<option value='0'> Aguarde um momento...</option>";
+        if ($('#IdState').val() == "") {
+            procemessage = "<option value='0'> Selecione um estado...</option>";
+        }
         $("#ddlcity").html(procemessage).show();
         var url = "/User/GetCities/";
 
-        $.ajax({
-            url: url,
-            data: { idState: _stateId },
-            cache: false,
-            type: "POST",
-            success: function (data) {
-                var markup = "<option value=''>Selecione</option>";
-                for (var x = 0; x < data.length; x++) {
-                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+        if ($('#IdState').val() != "") {
+            $.ajax({
+                url: url,
+                data: { idState: _stateId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    var markup = "<option value=''>Selecione</option>";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#ddlcity").html(markup).show();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
                 }
-                $("#ddlcity").html(markup).show();
-            },
-            error: function (reponse) {
-                alert("error : " + reponse);
-            }
-        });
+            });
+        }
 
     }
 

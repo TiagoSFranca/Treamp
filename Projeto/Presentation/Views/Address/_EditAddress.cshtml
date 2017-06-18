@@ -1,0 +1,88 @@
+﻿@model Presentation.Models.ViewModels.AddressViewEdit
+@{
+    ViewBag.Title = "Editar Endereço";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 class="modal-title" id="myModalLabel">@ViewBag.Title</h3>
+</div>
+@using (@Html.BeginForm("Edit", "Address", FormMethod.Post, new { @class = "form-horizontal form-modal" }))
+{
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-12 modal-title">
+                <h4>Endereço</h4>
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.Street)
+                @Html.EditorFor(m => m.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Street, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-3">
+                @Html.LabelFor(m => m.District)
+                @Html.EditorFor(m => m.District, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.District, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-3">
+                @Html.LabelFor(m => m.Number)
+                @Html.EditorFor(m => m.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.Number, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.Label("Estado Atual")
+                @Html.EditorFor(m => m.City.State.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+            <div class="col-lg-6">
+                @Html.Label("Cidade Atual")
+                @Html.EditorFor(m => m.City.Name, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.HiddenFor(m => m.City.Id)
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.IdState)
+                @Html.DropDownListFor(m => m.IdState, new SelectList(Model.States, "Id", "Name"), "Selecione", new { @class = "form-control", @onchange = "javascript:GetCity(this.value);" })
+                @Html.ValidationMessageFor(m => m.IdState, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-lg-6">
+                @Html.LabelFor(m => m.IdCity)
+                @Html.DropDownListFor(m => m.IdCity, new SelectList(Model.Cities, "Id", "Name"), "Selecione um estado...", new { @class = "form-control", @id = "ddlcity" })
+                @Html.ValidationMessageFor(m => m.IdCity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Editar</button>
+    </div>
+}
+
+@Scripts.Render("~/reloadModal")
+<script language="javascript" type="text/javascript">
+    function GetCity(_stateId) {
+        var procemessage = "<option value='0'> Aguarde um momento...</option>";
+        if ($('#IdState').val() == "") {
+            procemessage = "<option value='0'> Selecione um estado...</option>";
+        }
+        $("#ddlcity").html(procemessage).show();
+        var url = "/User/GetCities/";
+        if ($('#IdState').val() != "") {
+            $.ajax({
+                url: url,
+                data: { idState: _stateId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    var markup = "<option value=''>Selecione</option>";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#ddlcity").html(markup).show();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+        }
+    }
+</script>
