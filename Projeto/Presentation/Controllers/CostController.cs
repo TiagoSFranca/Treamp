@@ -17,6 +17,7 @@ namespace Presentation.Controllers
 
         public ActionResult AddMyCost(int idTravel)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var cost = new CostViewModel();
             cost.IdTravel = idTravel;
             return View("_AddMyCost", cost);
@@ -60,6 +61,7 @@ namespace Presentation.Controllers
 
         public ActionResult AddGroupCost(int idTravel)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             var cost = new CostViewCreate();
             cost.IdTravel = idTravel;
             cost.Users = FulFillLists(idTravel);
@@ -108,6 +110,7 @@ namespace Presentation.Controllers
 
         public ActionResult SeeGroupCost(int idCost)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             GroupViewModel group = new GroupViewModel();
             var Users = db.TravelUserCost.Where(c => c.IdCost == idCost).Select(t => t.TravelUser).Select(c => c.User).ToList();
             group.Members = AutoMapper.Mapper.Map<List<User>, List<UserViewItem>>(Users);

@@ -488,6 +488,7 @@
     <Content Include="Views\Cost\_SeeGroupCost.cshtml" />
     <Content Include="Views\User\_BankAccounts.cshtml" />
     <Content Include="Views\BankAccount\_AddAccount.cshtml" />
+    <Content Include="Views\BankAccount\_DeleteBankAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,6 +16,7 @@ namespace Presentation.Controllers
         // GET: BankAccount
         public ActionResult AddAccount()
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             BankAccountViewModel bank = new BankAccountViewModel();
             FulFillLists(bank);
             return View("_AddAccount", bank);
@@ -28,7 +29,7 @@ namespace Presentation.Controllers
 
             userLogged = (UserViewItem)HttpContext.Session["user"];
             bank.IdUser = userLogged.Id;
-            if(VerifyAccountExists(bank) != null)
+            if (VerifyAccountExists(bank) != null)
             {
                 ModelState.AddModelError("Account", "Conta já existe");
             }
@@ -41,7 +42,8 @@ namespace Presentation.Controllers
             if (!CanCreateAccount(userLogged.Id))
             {
                 messageModel.Message = "Você já possui o máximo de contas permitidas: 2";
-            }else
+            }
+            else
             {
                 try
                 {
@@ -56,6 +58,54 @@ namespace Presentation.Controllers
                 }
             }
             return View("_Message", messageModel);
+        }
+
+        public ActionResult DeleteBankAccount(int id)
+        {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            if (VerifyAccountByIdUser(userLogged.Id, id))
+            {
+                var result = db.BankAccount.FirstOrDefault(t => t.Id == id);
+                BankAccountViewModel bank = AutoMapper.Mapper.Map<BankAccount, BankAccountViewModel>(result);
+                return View("_DeleteBankAccount", bank);
+            }
+            else
+            {
+                return RedirectToAction("Profile", "User");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBankAccount(BankAccountViewModel bank)
+        {
+            messageModel.Title = "Excluir Conta Bancária";
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            if (VerifyAccountByIdUser(userLogged.Id, bank.Id))
+            {
+                var result = db.BankAccount.Find(bank.Id);
+                try
+                {
+                    db.BankAccount.Remove(result);
+                    db.SaveChanges();
+                    messageModel.Message = "Conta excluida com sucesso!";
+                }
+                catch (Exception e)
+                {
+                    messageModel.Message = "Não foi possível concluir sua solicitação!\n Tente novamente mais tarde.";
+                }
+            }
+            else
+            {
+                messageModel.Message = "Não foi possível concluir sua solicitação!\n Tente novamente mais tarde.";
+            }
+            return View("_Message", messageModel);
+        }
+
+        private bool VerifyAccountByIdUser(int idUser, int idAccount)
+        {
+            var result = db.BankAccount.FirstOrDefault(t => t.Id == idAccount && t.IdUser == idUser);
+            return (result != null);
         }
 
         private BankAccount VerifyAccountExists(BankAccountViewModel bank)

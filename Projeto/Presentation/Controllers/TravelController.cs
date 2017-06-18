@@ -125,6 +125,7 @@ namespace Presentation.Controllers
         //OK
         public ActionResult InviteMember(int idTravel)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             userLogged = (UserViewItem)HttpContext.Session["user"];
             TravelUserViewCreate travel = new TravelUserViewCreate();
             travel.IdTravel = idTravel;
@@ -336,6 +337,7 @@ namespace Presentation.Controllers
         //OK
         public ActionResult SeeGroup(int idTravel)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
             GroupViewModel group = new GroupViewModel();
             var TravelUsers = db.TravelUser.Where(tu => tu.IdTravel == idTravel && !tu.Pendent).ToList();
             var Users = TravelUsers.Select(tu => tu.User).ToList();
