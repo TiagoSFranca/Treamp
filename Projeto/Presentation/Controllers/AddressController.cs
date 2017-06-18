@@ -1,6 +1,7 @@
 ﻿using Presentation.Models;
 using Presentation.Models.ViewModels;
 using Presentation.WebServiceReference;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,17 +28,42 @@ namespace Presentation.Controllers
         public async Task<ActionResult> Edit()
         {
             userLogged = (UserViewItem)HttpContext.Session["user"];
-            var bk = db.Address.FirstOrDefault(b => b.IdUser == userLogged.Id);
-            AddressViewEdit bank = AutoMapper.Mapper.Map<Address, AddressViewEdit>(bk);
-            bank.City = await CityWS.GetCity((int)bank.IdCity);
-            await FulFillLists(bank);
-            return View("_EditAddress", bank);
+            var ads = db.Address.FirstOrDefault(b => b.IdUser == userLogged.Id);
+            AddressViewEdit address = AutoMapper.Mapper.Map<Address, AddressViewEdit>(ads);
+            address.City = await CityWS.GetCity((int)address.IdCity);
+            await FulFillLists(address);
+            return View("_EditAddress", address);
         }
 
         [HttpPost]
-        public ActionResult Edit(AddressViewEdit address)
+        public async Task<ActionResult> Edit(AddressViewEdit address)
         {
-            return View();
+            messageModel.Title = "Editar Endereço";
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            if (!ModelState.IsValid)
+            {
+                address.City = await CityWS.GetCity((int)address.IdCity);
+                await FulFillLists(address);
+                return View("_EditAddress", address);
+            }
+            try
+            {
+                var ads = db.Address.FirstOrDefault(b => b.IdUser == userLogged.Id);
+                ads.District = address.District;
+                ads.Number = address.Number;
+                ads.Street = address.Street;
+                if (address.IdCity != null)
+                {
+                    ads.IdCity = (int)address.IdCity;
+                }
+                db.SaveChanges();
+                messageModel.Message = "Endereço alterado com sucesso!";
+            }
+            catch (Exception e)
+            {
+                messageModel.Message = "Não foi possível concluir sua solicitação!\n Tente novamente mais tarde.";
+            }
+            return View("_Message", messageModel);
         }
 
         private async Task FulFillLists(AddressViewEdit addressRegister)
