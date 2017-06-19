@@ -496,10 +496,10 @@
     <Content Include="Views\Phone\Index.cshtml" />
     <Content Include="Views\Phone\_AddPhone.cshtml" />
     <Content Include="Views\Phone\_DeletePhone.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Notification\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -15,7 +15,13 @@ namespace Presentation.Controllers
 
         public ActionResult Index()
         {
-            return View();
+
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            var result = db.Notification.Where(t => t.Active && t.IdUser == userLogged.Id).OrderBy(c => c.Date).ToList();
+            result.ForEach(x => { x.Active = false; });
+            db.SaveChanges();
+            List<NotificationViewModel> Notifications = AutoMapper.Mapper.Map<List<Notification>, List<NotificationViewModel>>(result);
+            return View(Notifications);
         }
         
         public static void Create(int IdUser, string message)
