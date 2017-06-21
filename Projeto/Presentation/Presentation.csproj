@@ -497,6 +497,7 @@
     <Content Include="Views\Phone\_AddPhone.cshtml" />
     <Content Include="Views\Phone\_DeletePhone.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Travel\Historic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

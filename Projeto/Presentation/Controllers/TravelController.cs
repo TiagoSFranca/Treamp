@@ -334,6 +334,26 @@ namespace Presentation.Controllers
             return View(travelViewModel);
         }
 
+        public async Task<ActionResult> Historic()
+        {
+            userLogged = (UserViewItem)HttpContext.Session["user"];
+            TravelViewList Travels = new TravelViewList();
+            var data = db.TravelUser.Where(t => t.IdUser == userLogged.Id && !t.Pendent && t.IsOwner && t.Travel.Finished).Select(t => t.Travel).ToList();
+            Travels.Travels = AutoMapper.Mapper.Map<List<Travel>, List<TravelViewModel>>(data);
+            if (Travels.Travels != null && Travels.Travels.Count > 0)
+            {
+                foreach (var item in Travels.Travels)
+                {
+                    foreach (var element in item.Destinations)
+                    {
+                        var city = await CityWS.GetCity(element.IdCity);
+                        element.City = city;
+                    }
+                }
+            }
+            return View(Travels);
+        }
+
         //OK
         public ActionResult SeeGroup(int idTravel)
         {
