@@ -24,7 +24,7 @@
                                 <th>Data Inicial</th>
                                 <th>Data Final</th>
                                 <th>Grupo</th>
-                                <th>Ações</th>
+                                <th>Despesas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,9 +46,9 @@
                                                 </a>
                                             </td>
                                             <td align="center">
-                                                <a href="@Url.Action("DeleteTravel", "Travel", new { idTravel = @item.Id })" class="btn btn-outline btn-danger btn-circle" data-toggle="modal" data-target="#myModal">
+                                                @*<a href="@Url.Action("SeeCost", "Travel", new { idTravel = @item.Id })" class="btn btn-outline btn-danger btn-circle" data-toggle="modal" data-target="#myModal">
                                                     <i class="fa fa-trash-o fa-fw"></i>
-                                                </a>
+                                                </a>*@
                                             </td>
                                         </tr>
                                     }
